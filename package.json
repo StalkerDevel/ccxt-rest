@@ -1,11 +1,11 @@
 {
   "name": "ccxt-rest",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "Open Source Unified REST API of 100+ Crypto Exchange Sites",
   "homepage": "https://ccxt-rest.io",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ccxt-rest/ccxt-rest.git"
+    "url": "https://github.com/StalkerDevel/ccxt-rest.git"
   },
   "keywords": [
     "algorithmic",
@@ -496,7 +496,6 @@
     "widdershins": "^3.6.7"
   },
   "scripts": {
-    "postinstall": "npm run swagger:verify_version && rm -rf ./node_modules/oas-tools/.git",
     "prestart": "npm run swagger:verify_version",
     "start": "NODE_ENV=development node ./bin/www",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha test/ --recursive --exclude test/generated/** --reporter mochawesome --reporter-options reportDir=./out/mochawesome-report,reportTitle='CCXT-REST Test Results',reportPageTitle='CCXT-REST Test Results'",
@@ -505,7 +504,6 @@
     "test:dockerbuild": "docker build -t ccxtrest/ccxt-rest:testing .",
     "generate:exchangeSummary": "NODE_ENV=test node ./scripts/exchange-summary-dashboard",
     "postgenerate:exchangeSummary": "mkdir -p ./out/publish; cp -R ./out/exchanges/ ./out/publish/exchanges",
-    "prepack": "npm run swagger:verify_version && npm run generate:docs",
     "generate:client": "rm -rf ./clients/$lang && docker run --rm -v ${PWD}:/local swaggerapi/swagger-codegen-cli generate --api-package ph.adroit.ccxtrest.api --model-package ph.adroit.ccxtrest.model --invoker-package ph.adroit.ccxtrest.invoker --group-id ph.adoit.ccxtrest --artifact-id ccxt-rest-$lang-client --artifact-version $npm_package_version -c /local/config.json --additional-properties scmConnection=\"scm:git:git@github.com:ccxt-rest/ccxt-rest-$lang-client.git\" --additional-properties scmDeveloperConnection=\"scm:git:git@github.com:ccxt-rest/ccxt-rest-$lang-client.git\" --additional-properties scmUrl=\"https://github.com/ccxt-rest/ccxt-rest-$lang-client\" --additional-properties artifactUrl=\"https://github.com/ccxt-rest/ccxt-rest-$lang-client\" --additional-properties artifactDescription=\"ccxt-rest $lang client\" -i /local/api/swagger/swagger.yaml -l $lang -o /local/clients/$lang",
     "generate:clients": "for lang in `cat codegen_languages.txt`; do lang=$lang npm run generate:client; done",
     "generate:docs": "node ./scripts/generate-docs.js",
